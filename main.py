@@ -17,6 +17,11 @@ def main():
         content = unicode_file.read()
         print content
         unicode_file.close()
+    unipython = u'\u2119\u01b4\u2602\u210c\u00f8\u1f24'
+    strpython = unipython.encode('utf-8')
+    print unipython
+    print strpython
+
 
 if __name__ == '__main__':
     main()
