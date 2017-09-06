@@ -1,4 +1,21 @@
+# -*- coding: utf-8 -*-
 import os
+import sys
+import logging
+
+"""
+Log levels are ordered like this:
+CRITICAL        50
+ERROR	        40
+WARNING	        30
+INFO	        20
+DEBUG	        10
+NOTSET	        0
+"""
+
+log = logging.getLogger("adir")
+log.setLevel(logging.INFO)
+log.addHandler(logging.StreamHandler(stream=sys.stdout))
 
 
 def main():
@@ -21,7 +38,18 @@ def main():
     strpython = unipython.encode('utf-8')
     print unipython
     print strpython
-
+    str_adir = "אדיר"
+    unicode_adir = str_adir.decode('utf-8')
+    decoded_unicode_adir = str_adir.decode('utf-8')
+    new_adir = unicode("אדיר", 'utf-8')
+    assert(unicode_adir == decoded_unicode_adir == new_adir)
+    # The error: mixing str and unicode makes the str implicitly .decode('ascii'), so unicode chars fail to convert.
+    reload(sys)
+    print sys.getdefaultencoding()
+    # Causes the implicit decoding of 'str_adir.decode('ascii')' in the log.info() line to use 'utf-8' instead.
+    sys.setdefaultencoding('utf-8')
+    print sys.getdefaultencoding()
+    log.info("Adir's name in unicode is %s and in str it's %s...", unicode_adir, str_adir)
 
 if __name__ == '__main__':
     main()
